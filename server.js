@@ -5,7 +5,6 @@ require("dotenv").config();
 
 const app = express();
 
-// Enable CORS with Authorization header support
 app.use(
     cors({
         origin: "http://127.0.0.1:5500",
@@ -14,10 +13,8 @@ app.use(
     })
 );
 
-// Parse JSON
 app.use(express.json());
 
-// Connect to MongoDB
 mongoose
     .connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
@@ -26,19 +23,18 @@ mongoose
     .then(() => console.log("Connected to MongoDB Atlas"))
     .catch((err) => console.error("MongoDB connection error:", err));
 
-// Routes
 const noteRoutes = require("./routes/noteRoutes");
 const userRoutes = require("./routes/userRoutes");
+const todoRoutes = require("./routes/todoRoutes");
 
 app.use("/api/notes", noteRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/todos", todoRoutes);
 
-// Test route
 app.get("/", (req, res) => {
     res.send("Backend is working");
 });
 
-// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
     console.log(`Server running on http://localhost:${PORT}`)
