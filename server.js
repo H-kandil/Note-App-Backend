@@ -5,12 +5,12 @@ require("dotenv").config();
 
 const app = express();
 
-// Enable CORS for all origins (or specify origin if needed)
+// Enable CORS with Authorization header support
 app.use(
     cors({
         origin: "http://127.0.0.1:5500",
         methods: ["GET", "POST", "PUT", "DELETE"],
-        allowedHeaders: ["Content-Type"],
+        allowedHeaders: ["Content-Type", "Authorization"],
     })
 );
 
@@ -28,7 +28,10 @@ mongoose
 
 // Routes
 const noteRoutes = require("./routes/noteRoutes");
+const userRoutes = require("./routes/userRoutes");
+
 app.use("/api/notes", noteRoutes);
+app.use("/api/users", userRoutes);
 
 // Test route
 app.get("/", (req, res) => {
