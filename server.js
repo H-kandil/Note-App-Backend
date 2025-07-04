@@ -26,10 +26,12 @@ mongoose
 const noteRoutes = require("./routes/noteRoutes");
 const userRoutes = require("./routes/userRoutes");
 const todoRoutes = require("./routes/todoRoutes");
+const bookmarkRoutes = require("./routes/bookmarkRoutes"); // << أضفنا ده
 
 app.use("/api/notes", noteRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/todos", todoRoutes);
+app.use("/api/bookmarks", bookmarkRoutes); // << وأضفنا ده
 
 app.get("/", (req, res) => {
     res.send("Backend is working");
