@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-const bookmarkRoutes = require("./routes/BookmarkRoutes");
+const BookmarkRoutes = require("./routes/BookmarkRoutes");
 
 
 const app = express();
@@ -28,12 +28,12 @@ mongoose
 const noteRoutes = require("./routes/noteRoutes");
 const userRoutes = require("./routes/userRoutes");
 const todoRoutes = require("./routes/todoRoutes");
-const bookmarkRoutes = require("./routes/bookmarkRoutes"); // << أضفنا ده
+const BookmarkRoutes = require("./routes/BookmarkRoutes"); // << أضفنا ده
 
 app.use("/api/notes", noteRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/todos", todoRoutes);
-app.use("/api/bookmarks", bookmarkRoutes); // << وأضفنا ده
+app.use("/api/Bookmarks", BookmarkRoutes); // << وأضفنا ده
 
 app.get("/", (req, res) => {
     res.send("Backend is working");

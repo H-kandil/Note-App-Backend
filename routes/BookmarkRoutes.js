@@ -6,7 +6,7 @@ const {
     createBookmark,
     updateBookmark,
     deleteBookmark,
-} = require("../controllers/bookmarkController");
+} = require("../controllers/BookmarkController");
 const { protect } = require("../middleware/authMiddleware");
 
 router.route("/").get(protect, getBookmarks).post(protect, createBookmark);
