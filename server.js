@@ -28,7 +28,7 @@ mongoose
 const noteRoutes = require("./routes/noteRoutes");
 const userRoutes = require("./routes/userRoutes");
 const todoRoutes = require("./routes/todoRoutes");
-const BookmarkRoutes = require("./routes/BookmarkRoutes"); // << أضفنا ده
+//const BookmarkRoutes = require("./routes/BookmarkRoutes"); 
 
 app.use("/api/notes", noteRoutes);
 app.use("/api/users", userRoutes);
