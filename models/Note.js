@@ -11,20 +11,11 @@ const noteSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        content: {
-            type: String,
-            required: true,
-        },
-        category: {
-            type: String,
-            required: true,
-        },
+        content: String,
+        category: String,
+        date: String,
     },
-    {
-        timestamps: true, // Adds createdAt and updatedAt fields
-    }
+    { timestamps: true }
 );
 
-const Note = mongoose.model("Note", noteSchema);
-
-module.exports = Note;
+module.exports = mongoose.model("Note", noteSchema);

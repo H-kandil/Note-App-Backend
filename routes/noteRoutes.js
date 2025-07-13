@@ -7,12 +7,10 @@ const {
     updateNote,
     deleteNote,
 } = require("../controllers/noteController");
-
 const { protect } = require("../middleware/authMiddleware");
 
-// All routes below are protected with JWT
+// Protect all routes (must be logged in)
 router.route("/").get(protect, getNotes).post(protect, createNote);
-
 router
     .route("/:id")
     .get(protect, getNoteById)
