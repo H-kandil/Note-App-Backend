@@ -3,6 +3,32 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 const BookmarkRoutes = require("./routes/BookmarkRoutes");
+import userRoutes from "./routes/userRoutes.js";
+app.use("/api/users", userRoutes);
+import { OAuth2Client } from "google-auth-library";
+const client = new OAuth2Client(GOOGLE_CLIENT_ID);
+import verifyAppleToken from 'verify-apple-id-token';
+
+app.post('/api/auth/apple', async (req, res) => {
+  const { idToken } = req.body;
+  const jwtClaims = await verifyAppleToken({
+    idToken,
+    clientId: APPLE_CLIENT_ID,
+    nonce:
+  });
+  res.json({ email: jwtClaims.email, sub: jwtClaims.sub });
+});
+
+
+app.post("/api/auth/google", async (req, res) => {
+    const { tokenId } = req.body;
+    const ticket = await client.verifyIdToken({
+        idToken: tokenId,
+        audience: GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    res.json({ email: payload.email, name: payload.name, sub: payload.sub });
+});
 
 
 const app = express();
