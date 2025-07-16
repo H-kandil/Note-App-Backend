@@ -11,6 +11,8 @@ import noteRoutes from "./routes/noteRoutes.js";
 import todoRoutes from "./routes/todoRoutes.js";
 import bookmarkRoutes from "./routes/BookmarkRoutes.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
+import pomodoroRoutes from "./routes/pomodoroRoutes.js";
+app.use("/api/pomodoros", authMiddleware, pomodoroRoutes);
 
 // 1. Load env variables
 dotenv.config();

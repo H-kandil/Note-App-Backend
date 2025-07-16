@@ -1,13 +1,13 @@
-const Todo = require("../models/Todo");
+import Todo from "../models/Todo.js";
 
 // Get all todos for the logged-in user
-const getTodos = async (req, res) => {
+export const getTodos = async (req, res) => {
     const todos = await Todo.find({ user: req.user._id });
     res.json(todos);
 };
 
 // Create a new todo
-const createTodo = async (req, res) => {
+export const createTodo = async (req, res) => {
     const { text, completed } = req.body;
 
     if (!text) {
@@ -24,7 +24,7 @@ const createTodo = async (req, res) => {
 };
 
 // Update a todo
-const updateTodo = async (req, res) => {
+export const updateTodo = async (req, res) => {
     const todo = await Todo.findById(req.params.id);
 
     if (todo && todo.user.equals(req.user._id)) {
@@ -39,7 +39,7 @@ const updateTodo = async (req, res) => {
 };
 
 // Delete a todo
-const deleteTodo = async (req, res) => {
+export const deleteTodo = async (req, res) => {
     const todo = await Todo.findById(req.params.id);
 
     if (todo && todo.user.equals(req.user._id)) {
@@ -48,11 +48,4 @@ const deleteTodo = async (req, res) => {
     } else {
         res.status(404).json({ message: "Todo not found or unauthorized" });
     }
-};
-
-module.exports = {
-    getTodos,
-    createTodo,
-    updateTodo,
-    deleteTodo,
 };

@@ -1,14 +1,16 @@
-const express = require("express");
-const router = express.Router();
-const {
+import express from "express";
+import {
     getBookmarks,
     createBookmark,
     updateBookmark,
     deleteBookmark,
-} = require("../controllers/BookmarkController");
-const { protect } = require("../middleware/authMiddleware");
+} from "../controllers/BookmarkController.js";
+import { protect } from "../middleware/authMiddleware.js";
+
+const router = express.Router();
 
 router.route("/").get(protect, getBookmarks).post(protect, createBookmark);
+
 router
     .route("/:id")
     .put(protect, updateBookmark)

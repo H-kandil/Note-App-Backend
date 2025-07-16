@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const pomodoroSchema = new mongoose.Schema(
     {
@@ -23,4 +23,4 @@ const pomodoroSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-export default = mongoose.model("Pomodoro", pomodoroSchema);
+export default mongoose.model("Pomodoro", pomodoroSchema);

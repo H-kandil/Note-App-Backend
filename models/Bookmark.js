@@ -1,10 +1,20 @@
 import express from "express";
+import mongoose from "mongoose";
 const router = express.Router();
 
-// EXAMPLE route – adjust as needed
-router.get("/", (req, res) => {
-    res.send("Bookmark routes are working!");
+const bookmarkSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    title: String,
+    url: String,
+    category: String,
+    isPlan: Boolean,
 });
 
-// Important!
-export default router;
+const Bookmark = mongoose.model("Bookmark", bookmarkSchema);
+
+export default Bookmark;
+

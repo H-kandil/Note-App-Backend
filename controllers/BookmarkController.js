@@ -1,12 +1,11 @@
-// controllers/bookmarkController.js
-const Bookmark = require("../models/");
+import Bookmark from "../models/Bookmark.js"; // تأكد من أن اسم الملف Bookmark.js وموجود
 
-const getBookmarks = async (req, res) => {
+export const getBookmarks = async (req, res) => {
     const bookmarks = await Bookmark.find({ user: req.user._id });
     res.json(bookmarks);
 };
 
-const createBookmark = async (req, res) => {
+export const createBookmark = async (req, res) => {
     const { title, url, category, isPlan } = req.body;
 
     if (!title || !url) {
@@ -24,7 +23,7 @@ const createBookmark = async (req, res) => {
     res.status(201).json(newBookmark);
 };
 
-const updateBookmark = async (req, res) => {
+export const updateBookmark = async (req, res) => {
     const bookmark = await Bookmark.findById(req.params.id);
 
     if (bookmark && bookmark.user.equals(req.user._id)) {
@@ -40,7 +39,7 @@ const updateBookmark = async (req, res) => {
     }
 };
 
-const deleteBookmark = async (req, res) => {
+export const deleteBookmark = async (req, res) => {
     const bookmark = await Bookmark.findById(req.params.id);
 
     if (bookmark && bookmark.user.equals(req.user._id)) {
@@ -49,11 +48,4 @@ const deleteBookmark = async (req, res) => {
     } else {
         res.status(404).json({ message: "Bookmark not found or unauthorized" });
     }
-};
-
-module.exports = {
-    getBookmarks,
-    createBookmark,
-    updateBookmark,
-    deleteBookmark,
 };

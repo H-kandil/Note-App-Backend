@@ -1,11 +1,11 @@
-const Note = require("../models/Note");
+import Note from "../models/Note.js";
 
-const getNotes = async (req, res) => {
+export const getNotes = async (req, res) => {
     const notes = await Note.find({ user: req.user._id });
     res.json(notes);
 };
 
-const getNoteById = async (req, res) => {
+export const getNoteById = async (req, res) => {
     const note = await Note.findById(req.params.id);
     if (note && note.user.equals(req.user._id)) {
         res.json(note);
@@ -14,7 +14,7 @@ const getNoteById = async (req, res) => {
     }
 };
 
-const createNote = async (req, res) => {
+export const createNote = async (req, res) => {
     const { title, content, category } = req.body;
     if (!title || !content || !category) {
         return res.status(400).json({ message: "All fields are required" });
@@ -30,7 +30,7 @@ const createNote = async (req, res) => {
     res.status(201).json(newNote);
 };
 
-const updateNote = async (req, res) => {
+export const updateNote = async (req, res) => {
     const { title, content, category } = req.body;
     const note = await Note.findById(req.params.id);
 
@@ -45,7 +45,7 @@ const updateNote = async (req, res) => {
     }
 };
 
-const deleteNote = async (req, res) => {
+export const deleteNote = async (req, res) => {
     const note = await Note.findById(req.params.id);
 
     if (note && note.user.equals(req.user._id)) {
@@ -54,12 +54,4 @@ const deleteNote = async (req, res) => {
     } else {
         res.status(404).json({ message: "Note not found or unauthorized" });
     }
-};
-
-module.exports = {
-    getNotes,
-    getNoteById,
-    createNote,
-    updateNote,
-    deleteNote,
 };

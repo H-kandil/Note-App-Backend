@@ -1,16 +1,14 @@
-const express = require("express");
-const router = express.Router();
-const {
+import express from "express";
+import {
     getPomodoros,
     createPomodoro,
     deletePomodoro,
-} = require("../controllers/pomodoroController");
+} from "../controllers/pomodoroController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
-const { protect } = require("../middleware/authMiddleware");
+const router = express.Router();
 
 router.route("/").get(protect, getPomodoros).post(protect, createPomodoro);
-
 router.route("/:id").delete(protect, deletePomodoro);
 
 export default router;
-
