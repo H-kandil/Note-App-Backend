@@ -6,10 +6,10 @@ import { OAuth2Client } from "google-auth-library";
 import verifyAppleToken from "verify-apple-id-token";
 import jwt from "jsonwebtoken";
 
-// import userRoutes from "./routes/userRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import noteRoutes from "./routes/noteRoutes.js";
-// import todoRoutes from "./routes/todoRoutes.js";
-// import bookmarkRoutes from "./routes/BookmarkRoutes.js";
+import todoRoutes from "./routes/todoRoutes.js";
+import bookmarkRoutes from "./routes/BookmarkRoutes.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
 
 // 1. Load env variables
@@ -41,7 +41,7 @@ app.options("*", cors());
 // 4. JSON parser
 app.use(express.json());
 
-// ✅ 5. Google OAuth with JWT (تم تعديل الرد في حالة الخطأ لتفادي CORS error)
+// ✅ 5. Google OAuth with JWT
 app.post("/api/auth/google", async (req, res) => {
     const { idToken } = req.body;
     try {
@@ -63,7 +63,6 @@ app.post("/api/auth/google", async (req, res) => {
         });
     } catch (err) {
         console.error("Google error:", err);
-        // لا نرجع 401 عشان CORS ما يمنعش الرد
         return res.json({ error: "Invalid Google token" });
     }
 });
@@ -94,8 +93,8 @@ app.use("/api/users", userRoutes);
 
 // 8. Protected routes
 app.use("/api/notes", authMiddleware, noteRoutes);
-// app.use("/api/todos", authMiddleware, todoRoutes);
-// app.use("/api/bookmarks", authMiddleware, bookmarkRoutes);
+app.use("/api/todos", authMiddleware, todoRoutes);
+app.use("/api/bookmarks", authMiddleware, bookmarkRoutes);
 
 // 9. Health check
 app.get("/", (req, res) => res.send("Backend works"));
