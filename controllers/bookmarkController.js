@@ -1,4 +1,4 @@
-import bookmark from "../models/Bookmark.js"; 
+import Bookmark from "../models/Bookmark.js";
 
 export const getBookmarks = async (req, res) => {
     const bookmarks = await bookmark.find({ user: req.user._id });
@@ -12,7 +12,7 @@ export const createBookmark = async (req, res) => {
         return res.status(400).json({ message: "Title and URL are required" });
     }
 
-    const newBookmark = await bookmark.create({
+const newBookmark = await Bookmark.create({ ... });
         user: req.user._id,
         title,
         url,
@@ -24,7 +24,7 @@ export const createBookmark = async (req, res) => {
 };
 
 export const updateBookmark = async (req, res) => {
-    const bookmark = await bookmark.findById(req.params.id);
+const bookmark = await Bookmark.findById(...);
 
     if (bookmark && bookmark.user.equals(req.user._id)) {
         bookmark.title = req.body.title || bookmark.title;
