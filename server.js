@@ -35,14 +35,14 @@ app.use((req, res, next) => {
     next();
 });
 
-// 3. cors middleware (ثانوي لكن مهم)
+// 3. cors middleware
 app.use(cors());
 app.options("*", cors());
 
 // 4. JSON parser
 app.use(express.json());
 
-// 5. Google OAuth with JWT
+// ✅ 5. Google OAuth with JWT (تم تعديل الرد في حالة الخطأ لتفادي CORS error)
 app.post("/api/auth/google", async (req, res) => {
     const { idToken } = req.body;
     try {
@@ -64,7 +64,8 @@ app.post("/api/auth/google", async (req, res) => {
         });
     } catch (err) {
         console.error("Google error:", err);
-        return res.status(401).json({ message: "Invalid Google token" });
+        // لا نرجع 401 عشان CORS ما يمنعش الرد
+        return res.json({ error: "Invalid Google token" });
     }
 });
 
