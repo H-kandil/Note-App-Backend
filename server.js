@@ -21,18 +21,22 @@ const APPLE_CLIENT_ID = process.env.APPLE_CLIENT_ID;
 const JWT_SECRET = process.env.JWT_SECRET;
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
-// 2. Middleware
+// 2. CORS middleware 
 app.use(
     cors({
-        origin: "*",
-        methods: ["GET", "POST", "PUT", "DELETE"],
+        origin: "*", 
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization"],
     })
 );
 
+// 3.preflight (OPTIONS)
+app.options("*", cors());
+
+// 4. JSON parser
 app.use(express.json());
 
-// 3. Google OAuth with JWT
+// 5. Google OAuth with JWT
 app.post("/api/auth/google", async (req, res) => {
     const { idToken } = req.body;
     try {
@@ -58,7 +62,7 @@ app.post("/api/auth/google", async (req, res) => {
     }
 });
 
-// 4. Apple OAuth with JWT
+// 6. Apple OAuth with JWT
 app.post("/api/auth/apple", async (req, res) => {
     const { idToken } = req.body;
     try {
@@ -79,18 +83,18 @@ app.post("/api/auth/apple", async (req, res) => {
     }
 });
 
-// 5. Public routes
+// 7. Public routes
 app.use("/api/users", userRoutes);
 
-// 6. Protected routes
+// 8. Protected routes
 app.use("/api/notes", authMiddleware, noteRoutes);
 app.use("/api/todos", authMiddleware, todoRoutes);
 app.use("/api/bookmarks", authMiddleware, bookmarkRoutes);
 
-// 7. Health check
+// 9. Health check
 app.get("/", (req, res) => res.send("Backend works"));
 
-// 8. DB connect + server start
+// 10. DB connect + server start
 mongoose
     .connect(process.env.MONGO_URI)
     .then(() => console.log("Connected to MongoDB"))
