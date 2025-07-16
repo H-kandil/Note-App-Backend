@@ -1,4 +1,4 @@
-import bookmark from "../models/bookmark.js"; 
+import bookmark from "../models/Bookmark.js"; 
 
 export const getBookmarks = async (req, res) => {
     const bookmarks = await bookmark.find({ user: req.user._id });

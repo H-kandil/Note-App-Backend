@@ -6,23 +6,28 @@ import { OAuth2Client } from "google-auth-library";
 import verifyAppleToken from "verify-apple-id-token";
 import jwt from "jsonwebtoken";
 
+// Routes
 import userRoutes from "./routes/userRoutes.js";
 import noteRoutes from "./routes/noteRoutes.js";
 import todoRoutes from "./routes/todoRoutes.js";
-import { authMiddleware } from "./middleware/authMiddleware.js";
+import bookmarkRoutes from "./routes/bookmarkRoutes.js";
 import pomodoroRoutes from "./routes/pomodoroRoutes.js";
 
+// Middleware
+import { authMiddleware } from "./middleware/authMiddleware.js";
 
-// 1. Load env variables
+// Load environment variables
 dotenv.config();
 
 const app = express();
+
+// OAuth Clients
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const APPLE_CLIENT_ID = process.env.APPLE_CLIENT_ID;
 const JWT_SECRET = process.env.JWT_SECRET;
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
-
+// CORS headers (optional custom setup)
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
@@ -36,15 +41,12 @@ app.use((req, res, next) => {
     next();
 });
 
-// 3. cors middleware
+// Middleware
 app.use(cors());
 app.options("*", cors());
-
-// 4. JSON parser
 app.use(express.json());
-app.use("/api/pomodoros", authMiddleware, pomodoroRoutes);
 
-//  5. Google OAuth with JWT
+// Google OAuth Route
 app.post("/api/auth/google", async (req, res) => {
     const { idToken } = req.body;
     try {
@@ -70,7 +72,7 @@ app.post("/api/auth/google", async (req, res) => {
     }
 });
 
-// 6. Apple OAuth with JWT
+// Apple OAuth Route
 app.post("/api/auth/apple", async (req, res) => {
     const { idToken } = req.body;
     try {
@@ -91,18 +93,19 @@ app.post("/api/auth/apple", async (req, res) => {
     }
 });
 
-// 7. Public routes
+// Public routes
 app.use("/api/users", userRoutes);
 
-// 8. authMiddleware routes
+// Protected routes
 app.use("/api/notes", authMiddleware, noteRoutes);
 app.use("/api/todos", authMiddleware, todoRoutes);
 app.use("/api/bookmarks", authMiddleware, bookmarkRoutes);
+app.use("/api/pomodoros", authMiddleware, pomodoroRoutes);
 
-// 9. Health check
+// Health check
 app.get("/", (req, res) => res.send("Backend works"));
 
-// 10. DB connect + server start
+// Connect to MongoDB and start server
 mongoose
     .connect(process.env.MONGO_URI)
     .then(() => console.log("Connected to MongoDB"))

@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 const SECRET = process.env.JWT_SECRET;
 
-export const authMiddleware = (req, res, next) => {
+export const authMiddleware = async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader?.startsWith("Bearer ")) {
@@ -13,7 +14,13 @@ export const authMiddleware = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, SECRET);
-        req.user = decoded;
+
+        const user = await User.findById(decoded.id).select("-password");
+        if (!user) {
+            return res.status(401).json({ message: "User not found" });
+        }
+
+        req.user = user;
         next();
     } catch (err) {
         return res.status(403).json({ message: "Invalid token" });
