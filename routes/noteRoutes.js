@@ -1,15 +1,16 @@
-const express = require("express");
-const router = express.Router();
-const {
+import express from "express";
+import {
     getNotes,
     getNoteById,
     createNote,
     updateNote,
     deleteNote,
-} = require("../controllers/noteController");
-const { protect } = require("../middleware/authMiddleware");
+} from "../controllers/noteController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
-// Protect all routes (must be logged in)
+const router = express.Router();
+
+// Protected routes
 router.route("/").get(protect, getNotes).post(protect, createNote);
 router
     .route("/:id")
@@ -18,4 +19,3 @@ router
     .delete(protect, deleteNote);
 
 export default router;
-
