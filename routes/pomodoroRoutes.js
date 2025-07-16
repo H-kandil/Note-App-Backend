@@ -4,11 +4,14 @@ import {
     createPomodoro,
     deletePomodoro,
 } from "../controllers/pomodoroController.js";
-import { protect } from "../middleware/authMiddleware.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.route("/").get(protect, getPomodoros).post(protect, createPomodoro);
-router.route("/:id").delete(protect, deletePomodoro);
+router
+    .route("/")
+    .get(authMiddleware, getPomodoros)
+    .post(authMiddleware, createPomodoro);
+router.route("/:id").delete(authMiddleware, deletePomodoro);
 
 export default router;

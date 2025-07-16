@@ -1,4 +1,4 @@
-import Bookmark from "../models/Bookmark.js"; // تأكد من أن اسم الملف Bookmark.js وموجود
+import Bookmark from "../models/Bookmark.js"; 
 
 export const getBookmarks = async (req, res) => {
     const bookmarks = await Bookmark.find({ user: req.user._id });

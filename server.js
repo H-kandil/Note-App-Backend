@@ -93,7 +93,7 @@ app.post("/api/auth/apple", async (req, res) => {
 // 7. Public routes
 app.use("/api/users", userRoutes);
 
-// 8. Protected routes
+// 8. authMiddleware routes
 app.use("/api/notes", authMiddleware, noteRoutes);
 app.use("/api/todos", authMiddleware, todoRoutes);
 app.use("/api/bookmarks", authMiddleware, bookmarkRoutes);

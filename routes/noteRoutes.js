@@ -10,7 +10,7 @@ import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Protected routes
+// authMiddleware routes
 router
     .route("/")
     .get(authMiddleware, getNotes)
