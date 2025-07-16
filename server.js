@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 import userRoutes from "./routes/userRoutes.js";
 import noteRoutes from "./routes/noteRoutes.js";
 import todoRoutes from "./routes/todoRoutes.js";
-import bookmarkRoutes from "./routes/BookmarkRoutes.js";
+import bookmarkRoutes from "./routes/bookmarkRoutes.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
 import pomodoroRoutes from "./routes/pomodoroRoutes.js";
 
@@ -43,7 +43,6 @@ app.options("*", cors());
 
 // 4. JSON parser
 app.use(express.json());
-
 app.use("/api/pomodoros", authMiddleware, pomodoroRoutes);
 
 //  5. Google OAuth with JWT

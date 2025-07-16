@@ -14,7 +14,7 @@ const bookmarkSchema = new mongoose.Schema({
     isPlan: Boolean,
 });
 
-const Bookmark = mongoose.model("Bookmark", bookmarkSchema);
+const Bookmark = mongoose.model("bookmark", bookmarkSchema);
 
 export default Bookmark;
 

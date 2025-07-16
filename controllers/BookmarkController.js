@@ -1,7 +1,7 @@
-import Bookmark from "../models/Bookmark.js"; 
+import bookmark from "../models/bookmark.js"; 
 
 export const getBookmarks = async (req, res) => {
-    const bookmarks = await Bookmark.find({ user: req.user._id });
+    const bookmarks = await bookmark.find({ user: req.user._id });
     res.json(bookmarks);
 };
 
@@ -12,7 +12,7 @@ export const createBookmark = async (req, res) => {
         return res.status(400).json({ message: "Title and URL are required" });
     }
 
-    const newBookmark = await Bookmark.create({
+    const newBookmark = await bookmark.create({
         user: req.user._id,
         title,
         url,
@@ -24,7 +24,7 @@ export const createBookmark = async (req, res) => {
 };
 
 export const updateBookmark = async (req, res) => {
-    const bookmark = await Bookmark.findById(req.params.id);
+    const bookmark = await bookmark.findById(req.params.id);
 
     if (bookmark && bookmark.user.equals(req.user._id)) {
         bookmark.title = req.body.title || bookmark.title;
@@ -35,7 +35,7 @@ export const updateBookmark = async (req, res) => {
         const updated = await bookmark.save();
         res.json(updated);
     } else {
-        res.status(404).json({ message: "Bookmark not found or unauthorized" });
+        res.status(404).json({ message: "bookmark not found or unauthorized" });
     }
 };
 
@@ -44,8 +44,8 @@ export const deleteBookmark = async (req, res) => {
 
     if (bookmark && bookmark.user.equals(req.user._id)) {
         await bookmark.deleteOne();
-        res.json({ message: "Bookmark deleted" });
+        res.json({ message: "bookmark deleted" });
     } else {
-        res.status(404).json({ message: "Bookmark not found or unauthorized" });
+        res.status(404).json({ message: "bookmark not found or unauthorized" });
     }
 };

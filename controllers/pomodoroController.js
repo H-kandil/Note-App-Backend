@@ -1,8 +1,8 @@
-import Pomodoro from "../models/Pomodoro.js";
+import pomodoro from "../models/pomodoro.js";
 
 // Get all pomodoro logs for user
 export const getPomodoros = async (req, res) => {
-    const logs = await Pomodoro.find({ user: req.user._id });
+    const logs = await pomodoro.find({ user: req.user._id });
     res.json(logs);
 };
 
@@ -16,7 +16,7 @@ export const createPomodoro = async (req, res) => {
             .json({ message: "Task and duration are required" });
     }
 
-    const newLog = await Pomodoro.create({
+    const newLog = await pomodoro.create({
         user: req.user._id,
         task,
         duration,
@@ -28,11 +28,11 @@ export const createPomodoro = async (req, res) => {
 
 // Delete a pomodoro log
 export const deletePomodoro = async (req, res) => {
-    const log = await Pomodoro.findById(req.params.id);
+    const log = await pomodoro.findById(req.params.id);
 
     if (log && log.user.equals(req.user._id)) {
         await log.deleteOne();
-        res.json({ message: "Pomodoro log deleted" });
+        res.json({ message: "pomodoro log deleted" });
     } else {
         res.status(404).json({ message: "Not found or unauthorized" });
     }

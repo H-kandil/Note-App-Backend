@@ -4,7 +4,7 @@ import {
     createBookmark,
     updateBookmark,
     deleteBookmark,
-} from "../controllers/BookmarkController.js";
+} from "../controllers/bookmarkController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router = express.Router();

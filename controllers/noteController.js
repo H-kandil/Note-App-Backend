@@ -1,12 +1,12 @@
-import Note from "../models/Note.js";
+import note from "../models/note.js";
 
 export const getNotes = async (req, res) => {
-    const notes = await Note.find({ user: req.user._id });
+    const notes = await note.find({ user: req.user._id });
     res.json(notes);
 };
 
 export const getNoteById = async (req, res) => {
-    const note = await Note.findById(req.params.id);
+    const note = await note.findById(req.params.id);
     if (note && note.user.equals(req.user._id)) {
         res.json(note);
     } else {
@@ -20,7 +20,7 @@ export const createNote = async (req, res) => {
         return res.status(400).json({ message: "All fields are required" });
     }
 
-    const newNote = await Note.create({
+    const newNote = await note.create({
         user: req.user._id,
         title,
         content,
@@ -46,7 +46,7 @@ export const updateNote = async (req, res) => {
 };
 
 export const deleteNote = async (req, res) => {
-    const note = await Note.findById(req.params.id);
+    const note = await note.findById(req.params.id);
 
     if (note && note.user.equals(req.user._id)) {
         await note.deleteOne();

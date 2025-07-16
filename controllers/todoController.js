@@ -1,8 +1,8 @@
-import Todo from "../models/Todo.js";
+import todo from "../models/todo.js";
 
 // Get all todos for the logged-in user
 export const getTodos = async (req, res) => {
-    const todos = await Todo.find({ user: req.user._id });
+    const todos = await todo.find({ user: req.user._id });
     res.json(todos);
 };
 
@@ -34,7 +34,7 @@ export const updateTodo = async (req, res) => {
         const updated = await todo.save();
         res.json(updated);
     } else {
-        res.status(404).json({ message: "Todo not found or unauthorized" });
+        res.status(404).json({ message: "todo not found or unauthorized" });
     }
 };
 
@@ -46,6 +46,6 @@ export const deleteTodo = async (req, res) => {
         await todo.deleteOne();
         res.json({ message: "Todo deleted" });
     } else {
-        res.status(404).json({ message: "Todo not found or unauthorized" });
+        res.status(404).json({ message: "todo not found or unauthorized" });
     }
 };
