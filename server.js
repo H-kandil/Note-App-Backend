@@ -21,16 +21,22 @@ const APPLE_CLIENT_ID = process.env.APPLE_CLIENT_ID;
 const JWT_SECRET = process.env.JWT_SECRET;
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
-// 2. CORS middleware 
-app.use(
-    cors({
-        origin: "*", 
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Content-Type", "Authorization"],
-    })
-);
+// 2. إضافة هيدرات CORS يدويًا لحل المشكلة مع Render
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET,POST,PUT,DELETE,OPTIONS"
+    );
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization"
+    );
+    next();
+});
 
-// 3.preflight (OPTIONS)
+// 3. cors middleware (ثانوي لكن مهم)
+app.use(cors());
 app.options("*", cors());
 
 // 4. JSON parser
