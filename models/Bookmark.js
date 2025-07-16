@@ -1,30 +1,10 @@
-const mongoose = require("mongoose");
+import express from "express";
+const router = express.Router();
 
-const bookmarkSchema = new mongoose.Schema(
-    {
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: "User",
-        },
-        title: {
-            type: String,
-            required: true,
-        },
-        url: {
-            type: String,
-            required: true,
-        },
-        category: {
-            type: String,
-            default: "General",
-        },
-        isPlan: {
-            type: Boolean,
-            default: false, // لو false = Bookmark، لو true = Plan
-        },
-    },
-    { timestamps: true }
-);
+// EXAMPLE route – adjust as needed
+router.get("/", (req, res) => {
+    res.send("Bookmark routes are working!");
+});
 
-module.exports = mongoose.model("Bookmark", bookmarkSchema);
+// Important!
+export default router;

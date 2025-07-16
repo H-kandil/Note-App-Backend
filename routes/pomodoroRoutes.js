@@ -12,4 +12,5 @@ router.route("/").get(protect, getPomodoros).post(protect, createPomodoro);
 
 router.route("/:id").delete(protect, deletePomodoro);
 
-module.exports = router;
+export default router;
+
