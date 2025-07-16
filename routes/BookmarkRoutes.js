@@ -14,4 +14,4 @@ router
     .put(protect, updateBookmark)
     .delete(protect, deleteBookmark);
 
-module.exports = router;
+export default router;
