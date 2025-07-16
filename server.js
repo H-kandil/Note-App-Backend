@@ -7,7 +7,7 @@ import verifyAppleToken from "verify-apple-id-token";
 import jwt from "jsonwebtoken";
 
 // import userRoutes from "./routes/userRoutes.js";
-// import noteRoutes from "./routes/noteRoutes.js";
+import noteRoutes from "./routes/noteRoutes.js";
 // import todoRoutes from "./routes/todoRoutes.js";
 // import bookmarkRoutes from "./routes/BookmarkRoutes.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
@@ -93,7 +93,7 @@ app.post("/api/auth/apple", async (req, res) => {
 app.use("/api/users", userRoutes);
 
 // 8. Protected routes
-// app.use("/api/notes", authMiddleware, noteRoutes);
+app.use("/api/notes", authMiddleware, noteRoutes);
 // app.use("/api/todos", authMiddleware, todoRoutes);
 // app.use("/api/bookmarks", authMiddleware, bookmarkRoutes);
 

@@ -1,5 +1,5 @@
 // controllers/bookmarkController.js
-const Bookmark = require("../models/Bookmark");
+const Bookmark = require("../models/");
 
 const getBookmarks = async (req, res) => {
     const bookmarks = await Bookmark.find({ user: req.user._id });
