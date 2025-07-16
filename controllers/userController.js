@@ -1,9 +1,7 @@
-// controllers/userController.js
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-// توليد التوكن
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
