@@ -12,7 +12,7 @@ import todoRoutes from "./routes/todoRoutes.js";
 import bookmarkRoutes from "./routes/BookmarkRoutes.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
 import pomodoroRoutes from "./routes/pomodoroRoutes.js";
-app.use("/api/pomodoros", authMiddleware, pomodoroRoutes);
+
 
 // 1. Load env variables
 dotenv.config();
@@ -22,6 +22,8 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const APPLE_CLIENT_ID = process.env.APPLE_CLIENT_ID;
 const JWT_SECRET = process.env.JWT_SECRET;
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
+
+app.use("/api/pomodoros", authMiddleware, pomodoroRoutes);
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
