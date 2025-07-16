@@ -66,7 +66,7 @@ app.post("/api/auth/google", async (req, res) => {
             name: payload.name,
         });
     } catch (err) {
-        console.error("Google error:", err);
+        console.error("Google error", err);
         return res.json({ error: "Invalid Google token" });
     }
 });
@@ -87,7 +87,7 @@ app.post("/api/auth/apple", async (req, res) => {
         );
         return res.json({ token, sub: claims.sub, email: claims.email });
     } catch (err) {
-        console.error("Apple error:", err);
+        console.error("Apple error", err);
         return res.status(401).json({ message: "Invalid Apple token" });
     }
 });
@@ -107,7 +107,7 @@ app.get("/", (req, res) => res.send("Backend works"));
 mongoose
     .connect(process.env.MONGO_URI)
     .then(() => console.log("Connected to MongoDB"))
-    .catch((err) => console.error("MongoDB error:", err));
+    .catch((err) => console.error("MongoDB error", err));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
