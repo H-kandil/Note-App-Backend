@@ -6,10 +6,10 @@ import { OAuth2Client } from "google-auth-library";
 import verifyAppleToken from "verify-apple-id-token";
 import jwt from "jsonwebtoken";
 
-import userRoutes from "./routes/userRoutes.js";
-import noteRoutes from "./routes/noteRoutes.js";
-import todoRoutes from "./routes/todoRoutes.js";
-import bookmarkRoutes from "./routes/BookmarkRoutes.js";
+// import userRoutes from "./routes/userRoutes.js";
+// import noteRoutes from "./routes/noteRoutes.js";
+// import todoRoutes from "./routes/todoRoutes.js";
+// import bookmarkRoutes from "./routes/BookmarkRoutes.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
 
 // 1. Load env variables
@@ -21,7 +21,6 @@ const APPLE_CLIENT_ID = process.env.APPLE_CLIENT_ID;
 const JWT_SECRET = process.env.JWT_SECRET;
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
-// 2. إضافة هيدرات CORS يدويًا لحل المشكلة مع Render
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
