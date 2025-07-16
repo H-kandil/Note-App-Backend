@@ -1,4 +1,4 @@
-import todo from "../models/Todo.js";
+import todo from "../models/todo.js";
 
 // Get all todos for the logged-in user
 export const getTodos = async (req, res) => {
@@ -44,7 +44,7 @@ export const deleteTodo = async (req, res) => {
 
     if (todo && todo.user.equals(req.user._id)) {
         await todo.deleteOne();
-        res.json({ message: "Todo deleted" });
+        res.json({ message: "todo deleted" });
     } else {
         res.status(404).json({ message: "todo not found or unauthorized" });
     }

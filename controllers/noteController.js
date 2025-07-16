@@ -1,4 +1,4 @@
-import note from "../models/Note.js";
+import note from "../models/note.js";
 
 export const getNotes = async (req, res) => {
     const notes = await note.find({ user: req.user._id });
@@ -41,7 +41,7 @@ export const updateNote = async (req, res) => {
         const updated = await note.save();
         res.json(updated);
     } else {
-        res.status(404).json({ message: "Note not found or unauthorized" });
+        res.status(404).json({ message: "note not found or unauthorized" });
     }
 };
 
@@ -50,8 +50,8 @@ export const deleteNote = async (req, res) => {
 
     if (note && note.user.equals(req.user._id)) {
         await note.deleteOne();
-        res.json({ message: "Note deleted" });
+        res.json({ message: "note deleted" });
     } else {
-        res.status(404).json({ message: "Note not found or unauthorized" });
+        res.status(404).json({ message: "note not found or unauthorized" });
     }
 };
