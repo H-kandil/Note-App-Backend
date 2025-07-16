@@ -1,4 +1,4 @@
-import pomodoro from "../models/pomodoro.js";
+import pomodoro from "../models/Pomodoro.js";
 
 // Get all pomodoro logs for user
 export const getPomodoros = async (req, res) => {

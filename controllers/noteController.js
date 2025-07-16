@@ -1,4 +1,4 @@
-import note from "../models/note.js";
+import note from "../models/Note.js";
 
 export const getNotes = async (req, res) => {
     const notes = await note.find({ user: req.user._id });
