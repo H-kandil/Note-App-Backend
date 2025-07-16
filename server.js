@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { OAuth2Client } from "google-auth-library";
 import verifyAppleToken from "verify-apple-id-token";
 import jwt from "jsonwebtoken";
+
 import userRoutes from "./routes/userRoutes.js";
 import noteRoutes from "./routes/noteRoutes.js";
 import todoRoutes from "./routes/todoRoutes.js";
@@ -23,19 +24,20 @@ const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 // 2. Middleware
 app.use(
     cors({
-        origin: "http://localhost:5173",
+        origin: "*",
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type", "Authorization"],
     })
 );
+
 app.use(express.json());
 
 // 3. Google OAuth with JWT
 app.post("/api/auth/google", async (req, res) => {
-    const { tokenId } = req.body;
+    const { idToken } = req.body;
     try {
         const ticket = await googleClient.verifyIdToken({
-            idToken: tokenId,
+            idToken,
             audience: GOOGLE_CLIENT_ID,
         });
         const payload = ticket.getPayload();
@@ -80,12 +82,12 @@ app.post("/api/auth/apple", async (req, res) => {
 // 5. Public routes
 app.use("/api/users", userRoutes);
 
-// 6. Protected
+// 6. Protected routes
 app.use("/api/notes", authMiddleware, noteRoutes);
 app.use("/api/todos", authMiddleware, todoRoutes);
 app.use("/api/bookmarks", authMiddleware, bookmarkRoutes);
 
-// 7. Health
+// 7. Health check
 app.get("/", (req, res) => res.send("Backend works"));
 
 // 8. DB connect + server start
