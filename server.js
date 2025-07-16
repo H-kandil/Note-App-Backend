@@ -94,9 +94,9 @@ app.post("/api/auth/apple", async (req, res) => {
 app.use("/api/users", userRoutes);
 
 // 8. Protected routes
-app.use("/api/notes", authMiddleware, noteRoutes);
-app.use("/api/todos", authMiddleware, todoRoutes);
-app.use("/api/bookmarks", authMiddleware, bookmarkRoutes);
+// app.use("/api/notes", authMiddleware, noteRoutes);
+// app.use("/api/todos", authMiddleware, todoRoutes);
+// app.use("/api/bookmarks", authMiddleware, bookmarkRoutes);
 
 // 9. Health check
 app.get("/", (req, res) => res.send("Backend works"));
