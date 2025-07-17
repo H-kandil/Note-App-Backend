@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import user from "../models/user.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
@@ -12,7 +12,7 @@ export const registerUser = async (req, res) => {
         return res.status(400).json({ message: "Please include all fields" });
     }
 
-    const exists = await User.findOne({ email });
+    const exists = await user.findOne({ email });
     if (exists) {
         return res.status(400).json({ message: "User already exists" });
     }
@@ -20,7 +20,7 @@ export const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(password, salt);
 
-    const user = await User.create({ name, email, password: hashed });
+    const user = await user.create({ name, email, password: hashed });
     if (user) {
         res.status(201).json({
             id: user._id,
@@ -35,7 +35,7 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const user = await user.findOne({ email });
     if (user && (await bcrypt.compare(password, user.password))) {
         res.json({
             id: user._id,

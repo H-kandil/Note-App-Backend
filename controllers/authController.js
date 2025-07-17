@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import user from "../models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -32,7 +32,7 @@ export const login = async (req, res) => {
     if (!email || !password)
         return res.status(400).json({ message: "All fields required" });
 
-    const user = await User.findOne({ email });
+    const user = await user.findOne({ email });
     if (!user) return res.status(401).json({ message: "Invalid credentials" });
 
     const match = await bcrypt.compare(password, user.password);
