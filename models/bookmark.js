@@ -5,7 +5,7 @@ const router = express.Router();
 const bookmarkSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "user",
         required: true,
     },
     title: String,
