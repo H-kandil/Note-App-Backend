@@ -1,4 +1,4 @@
-import bookmark from "../models/Bookmark.js";
+import bookmark from "../models/bookmark.js";
 
 export const getBookmarks = async (req, res) => {
     const bookmarks = await bookmark.find({ user: req.user._id });
@@ -40,7 +40,7 @@ const bookmark = await bookmark.findById(req.params.id);
 };
 
 export const deleteBookmark = async (req, res) => {
-    const bookmark = await Bookmark.findById(req.params.id);
+    const bookmark = await bookmark.findById(req.params.id);
 
     if (bookmark && bookmark.user.equals(req.user._id)) {
         await bookmark.deleteOne();
