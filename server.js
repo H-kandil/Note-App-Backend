@@ -10,7 +10,7 @@ import jwt from "jsonwebtoken";
 import userRoutes from "./routes/userRoutes.js";
 import noteRoutes from "./routes/noteRoutes.js";
 import todoRoutes from "./routes/todoRoutes.js";
-// import bookmarkRoutes from "./routes/bookmarkRoutes.js";
+import bookmarkRoutes from "./routes/bookmarkRoutes.js";
 import pomodoroRoutes from "./routes/pomodoroRoutes.js";
 
 // Middleware
